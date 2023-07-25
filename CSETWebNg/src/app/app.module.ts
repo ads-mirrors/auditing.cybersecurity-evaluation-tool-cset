@@ -578,7 +578,8 @@ import { HydroActionItemsReportComponent } from './reports/hydro/hydro-action-it
 import { SdAnswerSummaryComponent } from './assessment/results/sd/sd-answer-summary/sd-answer-summary.component';
 import { SdAnswerSummaryReportComponent } from './reports/sd/sd-answer-summary-report/sd-answer-summary-report.component';
 import { KeyReportComponent } from './assessment/results/reports/key-report/key-report.component';
-
+import { TranslocoRootModule } from './transloco-root.module';
+import { TranslocoService } from '@ngneat/transloco';
 
 
 @NgModule({
@@ -668,6 +669,7 @@ import { KeyReportComponent } from './assessment/results/reports/key-report/key-
         AngularEditorModule,
         RouterModule,
         CurrencyMaskModule,
+        TranslocoRootModule,
         NgbModule,
         NgxChartsModule,
         TooltipModule,
@@ -1115,6 +1117,7 @@ import { KeyReportComponent } from './assessment/results/reports/key-report/key-
         KeyReportComponent,
     ],
     providers: [
+        TranslocoService,
         ConfigService,
         AuthenticationService,
         {
@@ -1172,7 +1175,7 @@ import { KeyReportComponent } from './assessment/results/reports/key-report/key-
         CrrService,
         Utilities,
         NCUAService,
-        GalleryService
+        GalleryService        
     ],
     bootstrap: [AppComponent]
 })

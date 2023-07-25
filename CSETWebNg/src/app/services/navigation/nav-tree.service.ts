@@ -28,6 +28,7 @@ import { PageVisibilityService } from './page-visibility.service';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { of as observableOf, BehaviorSubject } from "rxjs";
+import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,8 @@ export class NavTreeService {
 
   constructor(
     private assessSvc: AssessmentService,
-    private pageVisibliltySvc: PageVisibilityService
+    private pageVisibliltySvc: PageVisibilityService,
+    private translocoSvc: TranslocoService
   ) {
     // set up the mat tree control and its data source
     this.tocControl = new NestedTreeControl<NavTreeNode>(this.getChildren);
@@ -112,8 +114,16 @@ export class NavTreeService {
       // nodes without a 'displaytext' attribute are ignored
       if (!!workflowNode.attributes['displaytext']) {
 
+        let disp = workflowNode.attributes['displaytext'].value;
+
+        // localize the 'd' attribute
+        const attrD = workflowNode.attributes['d'];
+        if (!!attrD) {
+          disp = this.translocoSvc.translate(attrD.value);
+        }
+
         const navNode: NavTreeNode = {
-          label: workflowNode.attributes['displaytext'].value,
+          label: disp,
           value: workflowNode.id ?? 0,
           children: [],
           expandable: true,

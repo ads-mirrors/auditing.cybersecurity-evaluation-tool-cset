@@ -41,7 +41,7 @@
 
 
     <!-- Assessment Phase -->
-    <node displaytext="Assessment" id="phase-assessment">
+    <node displaytext="Assessment" d="assessment" id="phase-assessment">
         <node displaytext="Standard Questions" id="questions" path="assessment/{:id}/questions" condition="OPTION:STANDARD" />
 
 
@@ -206,7 +206,7 @@
 
 
     <!-- Results Phase -->
-    <node displaytext="Results" id="phase-results">
+    <node displaytext="Results" d="results" id="phase-results">
         <!-- Results - Standards -->
         <node displaytext="Standard Results" condition="OPTION:STANDARD">
             <node displaytext="Analysis Dashboard" id="dashboard" path="assessment/{:id}/results/dashboard" />

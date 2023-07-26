@@ -157,9 +157,10 @@ export class NavTreeService {
    */
   adjustNavNode(node: NavTreeNode) {
     if (node.value == 'maturity-questions') {
-      const alias = this.assessSvc.assessment?.maturityModel?.questionsAlias;
+      // Models may use a specific term for "questions" or "practices"
+      const alias = this.assessSvc.assessment?.maturityModel?.questionsAlias?.toLowerCase();
       if (!!alias) {
-        node.label = alias;
+        node.label = this.translocoSvc.translate(alias);
       }
     }
   }

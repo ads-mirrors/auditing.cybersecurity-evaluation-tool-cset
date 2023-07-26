@@ -29,6 +29,7 @@ import { ConfigService } from './config.service';
 import { AssessmentService } from './assessment.service';
 import { QuestionFilterService } from './filtering/question-filter.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { TranslocoService } from '@ngneat/transloco';
 
 const headers = {
   headers: new HttpHeaders()
@@ -68,6 +69,7 @@ export class QuestionsService {
   constructor(
     private http: HttpClient,
     private configSvc: ConfigService,
+    private tSvc: TranslocoService,
     private assessmentSvc: AssessmentService,
     private questionFilterSvc: QuestionFilterService
   ) {
@@ -395,7 +397,8 @@ export class QuestionsService {
    * Finds the button definition and returns its label
    */
   answerButtonLabel(modelId: Number, answerCode: string): string {
-    return this.findAnsDefinition(modelId, answerCode).buttonLabel;
+    var def = this.findAnsDefinition(modelId, answerCode);
+    return this.tSvc.translate(`button-label.${def.buttonLabelKey}`);
   }
 
   /**
@@ -403,11 +406,11 @@ export class QuestionsService {
    * If a tooltip is not defined, the button label is returned.
    */
   answerButtonTooltip(modelId: Number, answerCode: string): string {
-    var t = this.findAnsDefinition(modelId, answerCode);
-      if (!!t.buttonTooltip) {
-        return t.buttonTooltip;
+    var def = this.findAnsDefinition(modelId, answerCode);
+      if (!!def.buttonTooltipKey) {
+        return this.tSvc.translate(`tooltip.${def.buttonTooltipKey}`);
       }
-      return t.buttonLabel;
+      return this.tSvc.translate(`button-label.${def.buttonLabelKey}`);
   }
 
   /**

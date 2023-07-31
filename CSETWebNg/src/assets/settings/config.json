@@ -29,7 +29,7 @@
     "installationMode": "TSA",
     "mobileEnvironment": "",
     "behaviors": {
-        "defaultTitle":"CSET",
+        "defaultTitle": "CSET",
         "showDisclaimer": true,
         "showModuleBuilder": true,
         "showModuleImport": true,
@@ -37,7 +37,7 @@
         "showAssessmentDocuments": true,
         "showObservations": true,
         "showFacilitatorDropDown": true,
-        "showNameDisclaimer":false,
+        "showNameDisclaimer": false,
         "showAggregation": true,
         "showAnalytics": true,
         "showAnalyticsAtTheEnd": true,
@@ -66,7 +66,193 @@
         "showVulnerabilitiesDiagramInventoryTab": false,
         "additionalUserGuides": []
     },
-    "answersDefault": [
+    "moduleBehaviors": [
+        {
+            "moduleName": "EDM",
+            "questionIcons": {
+                "showDetails": false,
+                "guidanceIcon": "G",
+                "showReviewed": false
+            }
+        },
+        {
+            "moduleName": "CRR",
+            "questionIcons": {
+                "showDetails": false,
+                "guidanceIcon": "G",
+                "showReviewed": false
+            }
+        },
+        {
+            "moduleName": "IMR",
+            "showMaturityLevelBadge": false,
+            "questionIcons": {
+                "showDetails": false,
+                "guidanceIcon": "G",
+                "showReviewed": false
+            }
+        },
+        {
+            "moduleName": "RRA",
+            "questionIcons": {
+                "showDetails": false,
+                "guidanceIcon": "G",
+                "showReviewed": false
+            }
+        },
+        {
+            "moduleName": "CIS",
+            "questionIcons": {
+                "showDetails": false,
+                "showObservations": false,
+                "showReferences": false,
+                "showReviewed": false
+            }
+        },
+        {
+            "moduleName": "CPG",
+            "showMaturityLevelBadge": false,
+            "questionIcons": {
+                "showDetails": false,
+                "showReviewed": false
+            },
+            "answerOptions": [
+                {
+                    "code": "Y",
+                    "buttonLabelKey": "Y-CPG",
+                    "buttonCss": "btn-yes",
+                    "answerLabelKey": "Implemented",
+                    "buttonTooltipKey": "Y-CPG"
+                },
+                {
+                    "code": "I",
+                    "buttonLabelKey": "I-CPG",
+                    "buttonCss": "btn-na",
+                    "answerLabelKey": "In Progress",
+                    "buttonTooltipKey": "I-CPG"
+                },
+                {
+                    "code": "S",
+                    "buttonLabelKey": "S-CPG",
+                    "buttonCss": "btn-alt",
+                    "answerLabelKey": "Scoped",
+                    "buttonTooltipKey": "S-CPG"
+                },
+                {
+                    "code": "N",
+                    "buttonLabelKey": "N-CPG",
+                    "buttonCss": "btn-no",
+                    "answerLabelKey": "Not Implemented",
+                    "buttonTooltipKey": "N-CPG"
+                }
+            ]
+        },
+        {
+            "moduleName": "C2M2",
+            "questionIcons": {
+                "showReviewed": false
+            },
+            "answerOptions": [
+                {
+                    "code": "FI",
+                    "buttonLabelKey": "FI-C2M2",
+                    "buttonCss": "btn-c2m2-fi",
+                    "answerLabelKey": "FI-C2M2",
+                    "buttonTooltipKey": "FI-C2M2"
+                },
+                {
+                    "code": "LI",
+                    "buttonLabelKey": "LI-C2M2",
+                    "buttonCss": "btn-c2m2-li",
+                    "answerLabelKey": "LI-C2M2",
+                    "buttonTooltipKey": "LI-C2M2"
+                },
+                {
+                    "code": "PI",
+                    "buttonLabelKey": "PI-C2M2",
+                    "buttonCss": "btn-c2m2-pi",
+                    "answerLabelKey": "PI-C2M2",
+                    "buttonTooltipKey": "PI-C2M2"
+                },
+                {
+                    "code": "NI",
+                    "buttonLabelKey": "NI-C2M2",
+                    "buttonCss": "btn-c2m2-ni",
+                    "answerLabelKey": "NI-C2M2",
+                    "buttonTooltipKey": "NI-C2M2"
+                }
+            ]
+        },
+        {
+            "moduleName": "ACET",
+            "answerOptions": [
+                {
+                    "code": "A",
+                    "buttonLabelKey": "Yes(C)",
+                    "buttonCss": "btn-alt",
+                    "answerLabelKey": "Yes Compensating Control",
+                    "note": "This will only apply in the ACET skin.  See QuestionsService"
+                }
+            ]
+        },
+        {
+            "moduleName": "ISE",
+            "questionIcons": {
+                "showObservations": false
+            },
+            "answerOptions": [
+                {
+                    "code": "Y",
+                    "buttonLabelKey": "Yes",
+                    "buttonCss": "btn-yes",
+                    "answerLabelKey": ""
+                },
+                {
+                    "code": "N",
+                    "buttonLabelKey": "No",
+                    "buttonCss": "btn-no",
+                    "answerLabelKey": ""
+                },
+                {
+                    "code": "U",
+                    "buttonLabelKey": "Unanswered"
+                }
+            ]
+        },
+        {
+            "moduleName": "HYDRO",
+            "questionIcons": {
+                "showDetails": false,
+                "showGuidance": false,
+                "showObservations": false,
+                "showReferences": false
+            }
+        },
+        {
+            "moduleName": "MVRA",
+            "answerOptions": [
+                {
+                    "code": "Y",
+                    "buttonLabelKey": "Fully",
+                    "buttonCss": "btn-yes",
+                    "answerLabelKey": "Fully Implemented"
+                },
+                {
+                    "code": "N",
+                    "buttonLabelKey": "Not",
+                    "buttonCss": "btn-no",
+                    "answerLabelKey": "Not Implemented"
+                },
+                {
+                    "code": "A",
+                    "buttonLabelKey": "Partial",
+                    "buttonCss": "btn-alt",
+                    "answerLabelKey": "Partially Implemented"
+                }
+            ]
+        }
+    ],
+    "answerOptionsDefault": [
         {
             "code": "U",
             "answerLabelKey": "U"
@@ -112,113 +298,6 @@
             "buttonTooltipKey": "Iss",
             "buttonCss": "btn-iss",
             "answerLabelKey": "Iss"
-        }
-    ],
-    "answersMVRA": [
-        {
-            "code": "Y",
-            "buttonLabelKey": "Y-MVRA",
-            "buttonCss": "btn-yes",
-            "answerLabel": "Fully Implemented"
-        },
-        {
-            "code": "N",
-            "buttonLabelKey": "N-MVRA",
-            "buttonCss": "btn-no",
-            "answerLabel": "Not Implemented"
-        },
-        {
-            "code": "A",
-            "buttonLabelKey": "A-MVRA",
-            "buttonCss": "btn-alt",
-            "answerLabel": "Partially Implemented"
-        }
-    ],
-    "answersACET": [
-        {
-            "code": "A",
-            "buttonLabelKey": "A-ACET",
-            "buttonCss": "btn-alt",
-            "answerLabel": "Yes Compensating Control",
-            "note": "This will only apply in the ACET skin.  See QuestionsService"
-        }
-    ],
-    "answersISE": [
-        {
-            "code": "Y",
-            "buttonLabelKey": "Y",
-            "buttonCss": "btn-yes",
-            "answerLabel": ""
-        },
-        {
-            "code": "N",
-            "buttonLabelKey": "N",
-            "buttonCss": "btn-no",
-            "answerLabel": ""
-        },
-        {
-            "code": "U",
-            "buttonLabelKey": "U"
-        }
-    ],
-    "answersCPG": [
-        {
-            "code": "Y",
-            "buttonLabelKey": "Y-CPG",
-            "buttonCss": "btn-yes",
-            "answerLabel": "Implemented",
-            "buttonTooltipKey": "Y-CPG"
-        },
-        {
-            "code": "I",
-            "buttonLabelKey": "I-CPG",
-            "buttonCss": "btn-na",
-            "answerLabel": "In Progress",
-            "buttonTooltipKey": "I-CPG"
-        },
-        {
-            "code": "S",
-            "buttonLabelKey": "S-CPG",
-            "buttonCss": "btn-alt",
-            "answerLabel": "Scoped",
-            "buttonTooltipKey": "S-CPG"
-        },
-        {
-            "code": "N",
-            "buttonLabelKey": "N-CPG",
-            "buttonCss": "btn-no",
-            "answerLabel": "Not Implemented",
-            "buttonTooltipKey": "N-CPG"
-        }
-    ],
-    "answersC2M2": [
-        {
-            "code": "FI",
-            "buttonLabelKey": "FI-C2M2",
-            "buttonCss": "btn-c2m2-fi",
-            "answerLabel": "Fully Implemented (FI)",
-            "buttonTooltipKey": "FI-C2M2"
-        },
-        {
-            "code": "LI",
-            "buttonLabelKey": "LI-C2M2",
-            "buttonCss": "btn-c2m2-li",
-            "answerLabel": "Largely Implemented (LI)",
-            "buttonTooltipKey": "LI-C2M2"
-        },
-        {
-            "code": "PI",
-            "buttonLabelKey": "PI-C2M2",
-            "buttonCss": "btn-c2m2-pi",
-            "answerLabel": "Partially Implemented (PI)",
-            "buttonTooltipKey": "PI-C2M2"
-        },
-        {
-            "code": "NI",
-            "buttonLabelKey": "NI-C2M2",
-            "buttonCss": "btn-c2m2-ni",
-            "answerLabel": "Not Implemented (NI)",
-            "buttonTooltipKey": "NI-C2M2"
         }
     ]
 }

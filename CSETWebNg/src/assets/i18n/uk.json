@@ -25,14 +25,18 @@
         "I": "Неповний",
         "Iss": "Issue(N)",
         "S": "S",
+        
         "Y-MVRA": "Повністю",
         "N-MVRA": "ні",
         "A-MVRA": "Частковий",
+
         "A-ACET": "Yes(C)",
-        "Y-CPG": "Imp",
-        "I-CPG": "Prog",
-        "S-CPG": "Scoped",
-        "N-CPG": "Not",
+
+        "Y-CPG": "[UK] Imp",
+        "I-CPG": "[UK] Prog",
+        "S-CPG": "[UK] Scoped",
+        "N-CPG": "[UK] Not",
+
         "FI-C2M2": "FI",
         "LI-C2M2": "LI",
         "PI-C2M2": "PI",
@@ -60,5 +64,12 @@
 
         "mfr-flag": "Цей контроль потребує додаткового перегляду",
         "requires-review": "Один або кілька елементів керування в цій категорії потребують додаткової перевірки."
+    },
+    "answer-label": {
+        "FI-C2M2": "[UK] Fully Implemented (FI)",
+        "LI-C2M2": "[UK] Largely Implemented (LI)",
+        "PI-C2M2": "[UK] Partially Implemented (PI)",
+        "NI-C2M2": "[UK] Not Implemented (NI)"
+
     }
 }

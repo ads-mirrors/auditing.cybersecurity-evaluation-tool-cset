@@ -195,7 +195,7 @@ import { NavigationService } from './services/navigation/navigation.service';
 import { QuestionsService } from './services/questions.service';
 import { SalService } from './services/sal.service';
 import { StandardService } from './services/standard.service';
-import { CodeEditorModule } from '@ngstack/code-editor';
+import { CodeEditorModule } from '@goecmarc/code-editor';
 import { SetListComponent } from './builder/custom-set-list/custom-set-list.component';
 import { SetBuilderService } from './services/set-builder.service';
 import { CustomSetComponent } from './builder/set-detail/set-detail.component';
@@ -580,6 +580,10 @@ import { SdAnswerSummaryReportComponent } from './reports/sd/sd-answer-summary-r
 import { KeyReportComponent } from './assessment/results/reports/key-report/key-report.component';
 import { TranslocoRootModule } from './transloco-root.module';
 import { TranslocoService } from '@ngneat/transloco';
+import { ImrReportComponent } from './reports/imr/imr-report/imr-report.component';
+import { CmuPerformanceSummaryComponent } from './reports/cmu/cmu-performance-summary/cmu-performance-summary.component';
+import { CmuGoalPerfStackedBarComponent } from './reports/cmu/cmu-goal-perf-stacked-bar/cmu-goal-perf-stacked-bar.component';
+import { CmuResultsDetailComponent } from './reports/cmu/cmu-results-detail/cmu-results-detail.component';
 
 
 @NgModule({
@@ -1019,6 +1023,8 @@ import { TranslocoService } from '@ngneat/transloco';
         CrrNistCsfCatSummaryComponent,
         CrrNistCsfCatPerformanceComponent,
         CrrSideTocComponent,
+        CmuPerformanceSummaryComponent,
+        ImrReportComponent,
         ReferencesBlockComponent,
         NewAssessmentDialogComponent,
         CrrMainTocComponent,
@@ -1115,6 +1121,8 @@ import { TranslocoService } from '@ngneat/transloco';
         SdAnswerSummaryReportComponent,
         SdAnswerSummaryComponent,
         KeyReportComponent,
+        CmuGoalPerfStackedBarComponent,
+        CmuResultsDetailComponent,
     ],
     providers: [
         TranslocoService,

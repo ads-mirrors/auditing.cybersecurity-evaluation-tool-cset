@@ -21,20 +21,35 @@
 //  SOFTWARE.
 //
 ////////////////////////////////
+import { Component, Input, OnInit } from '@angular/core';
+import { CrrReportModel } from '../../../models/reports.model';
+import { CrrService } from '../../../services/crr.service';
 
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
+@Component({
+  selector: 'app-cmu-performance-summary',
+  templateUrl: './cmu-performance-summary.component.html'
+})
+export class CmuPerformanceSummaryComponent implements OnInit {
 
-export const environment = {
-  production: false,
-  appUrl: 'http://localhost:4200/',
-  apiUrl: 'https://localhost:5001/api/',
-  docUrl: 'https://localhost:5001/Documents/',
-  appCode: 'CSET',
-  visibleVersion: "12.0.2.5",
-  version: '12.0.2.5',
-  helpContactEmail: 'cset@cisa.dhs.gov',
-  helpContactPhone: ''
-};
+  @Input() model: CrrReportModel;
+
+  legend: string = '';
+  charts: any[] = [];
+
+  constructor(private crrSvc: CrrService) { }
+
+  ngOnInit(): void {
+    this.crrSvc.getCrrPerformanceSummaryLegendWidget().subscribe((resp: string) => {
+      this.legend = resp;
+    });
+
+    this.crrSvc.getCrrPerformanceSummaryBodyCharts().subscribe((resp: any[]) => {
+      this.charts = resp;
+    });
+  }
+
+  getChart(i, j) {
+    return this.charts[i][j];
+  }
+
+}

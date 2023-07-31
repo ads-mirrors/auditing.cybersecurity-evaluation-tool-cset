@@ -2,6 +2,13 @@
     "prepare": "Приготуйте",
     "assessment": "Оцінка",
     "results": "Результати",
+    "rra tutorial": "Посібник із готовності до програм-вимагачів",
+    "goal performance": "Цільова продуктивність",
+    "assessment tiers": "Рівні оцінювання",
+    "performance summary": "Підсумок продуктивності",
+    "reports": "Звіти",
+    "feedback": "Зворотній зв'язок",
+
     "assessment configuration": "Конфігурація оцінювання",
     "assessment information": "Інформація про оцінку",
     "organization details": "Деталі організації",
@@ -25,7 +32,7 @@
         "I": "Неповний",
         "Iss": "Issue(N)",
         "S": "S",
-        
+
         "Y-MVRA": "Повністю",
         "N-MVRA": "ні",
         "A-MVRA": "Частковий",

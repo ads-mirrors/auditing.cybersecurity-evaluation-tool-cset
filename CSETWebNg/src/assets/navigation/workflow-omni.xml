@@ -30,7 +30,7 @@
 
         <node displaytext="CRR Tutorial" id="tutorial-crr" path="assessment/{:id}/prepare/tutorial-crr" condition="MATURITY:CRR" />
 
-        <node displaytext="Ransomware Readiness Tutorial" id="tutorial-rra" path="assessment/{:id}/prepare/tutorial-rra" condition="MATURITY:RRA ORIGIN-NOT:CF" />
+        <node displaytext="Ransomware Readiness Tutorial" d="rra tutorial" id="tutorial-rra" path="assessment/{:id}/prepare/tutorial-rra" condition="MATURITY:RRA ORIGIN-NOT:CF" />
 
         <node displaytext="CIS Tutorial" id="tutorial-cis" path="assessment/{:id}/prepare/tutorial-cis" condition="MATURITY:CIS" />
         <node displaytext="CIS Configuration" id="config-cis" path="assessment/{:id}/prepare/config-cis" condition="MATURITY:CIS" />
@@ -256,9 +256,9 @@
 
 
         <!-- Results - RRA -->
-        <node displaytext="Goal Performance" id="rra-gaps" path="assessment/{:id}/results/rra-gaps" condition="MATURITY:RRA" />
-        <node displaytext="Assessment Tiers" id="rra-level-results" path="assessment/{:id}/results/rra-level-results" condition="MATURITY:RRA" />
-        <node displaytext="Performance Summary" id="rra-summary-all" path="assessment/{:id}/results/rra-summary-all" condition="MATURITY:RRA" />
+        <node displaytext="Goal Performance" d="goal performance" id="rra-gaps" path="assessment/{:id}/results/rra-gaps" condition="MATURITY:RRA" />
+        <node displaytext="Assessment Tiers" d="assessment tiers" id="rra-level-results" path="assessment/{:id}/results/rra-level-results" condition="MATURITY:RRA" />
+        <node displaytext="Performance Summary" d="performance summary" id="rra-summary-all" path="assessment/{:id}/results/rra-summary-all" condition="MATURITY:RRA" />
 
 
 
@@ -301,11 +301,11 @@
 
         <node displaytext="High-Level Assessment Description Executive Summary &amp; Comments" id="overview" path="assessment/{:id}/results/overview" condition="SHOW-EXEC-SUMMARY" />
 
-        <node displaytext="Reports" id="reports" path="assessment/{:id}/results/reports" />
+        <node displaytext="Reports" d="reports" id="reports" path="assessment/{:id}/results/reports" />
 
         <!--node displaytext="Assessment Comparison" id="analytics-compare" path="assessment/{:id}/results/analytics-compare" condition="ORIGIN:CF" /-->
 
-        <node displaytext="Feedback" id="feedback" path="assessment/{:id}/results/feedback" condition="INSTALL-MODE:CSET SHOW-FEEDBACK" />
+        <node displaytext="Feedback" d="feedback" id="feedback" path="assessment/{:id}/results/feedback" condition="INSTALL-MODE:CSET SHOW-FEEDBACK" />
 
         <node displaytext="Assessment Complete" id="tsa-assessment-complete" path="assessment/{:id}/results/tsa-assessment-complete" condition="INSTALL-MODE:TSA" />
 

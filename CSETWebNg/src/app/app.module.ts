@@ -23,7 +23,7 @@
 ////////////////////////////////
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { APP_INITIALIZER, NgModule} from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -49,50 +49,50 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { MatSliderModule } from '@angular/material/slider';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {A11yModule} from '@angular/cdk/a11y';
-import {CdkAccordionModule} from '@angular/cdk/accordion';
-import {ClipboardModule} from '@angular/cdk/clipboard';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {PortalModule} from '@angular/cdk/portal';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkStepperModule} from '@angular/cdk/stepper';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatCardModule} from '@angular/material/card';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatTreeModule} from '@angular/material/tree';
-import {OverlayModule} from '@angular/cdk/overlay';
+import { A11yModule } from '@angular/cdk/a11y';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PortalModule } from '@angular/cdk/portal';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { NgxSliderModule } from 'ngx-slider-v2';
 import { BrowserModule } from '@angular/platform-browser';
@@ -585,6 +585,33 @@ import { CmuPerformanceSummaryComponent } from './reports/cmu/cmu-performance-su
 import { CmuGoalPerfStackedBarComponent } from './reports/cmu/cmu-goal-perf-stacked-bar/cmu-goal-perf-stacked-bar.component';
 import { CmuResultsDetailComponent } from './reports/cmu/cmu-results-detail/cmu-results-detail.component';
 
+// export function init1(service1: ConfigService): () => Promise<any> {
+//     return () => service1.loadConfig();
+// }
+
+// export function init2(service2: QuestionsService, service1: ConfigService): () => Promise<any> {
+//     return () => {
+//         // Ensure that initFunction1 finishes before proceeding with initFunction2
+//         return init1(service1)()
+//             .then(() => service2.loadLoco(service1.userLanguage));
+//     };
+// }
+
+
+//return () => {
+//             configSvc.loadConfig().then(() => {
+//                 authSvc.checkLocal();
+//             });
+//         };
+//return () => {
+//             configSvc.loadConfig().then(() => {
+//                 authSvc.checkLocal();
+//             });
+//         };
+
+// export function xyz(qSvc: QuestionsService): () => Promise<any> {
+//     return () => qSvc.loadLoco();
+// }
 
 @NgModule({
     imports: [
@@ -1128,7 +1155,9 @@ import { CmuResultsDetailComponent } from './reports/cmu/cmu-results-detail/cmu-
         TranslocoService,
         ConfigService,
         AuthenticationService,
+
         {
+            // this is the real one I think
             provide: APP_INITIALIZER,
             useFactory: (configSvc: ConfigService, authSvc: AuthenticationService) => {
                 return () => {
@@ -1139,6 +1168,13 @@ import { CmuResultsDetailComponent } from './reports/cmu/cmu-results-detail/cmu-
             },
             deps: [ConfigService, AuthenticationService],
             multi: true
+        },
+        {
+            // This is not working correctly; the service still doesn't get loaded before app startup
+            provide: APP_INITIALIZER,
+            multi: true,
+            useFactory: preloadLanguage,
+            deps: [TranslocoService]
         },
         {
             provide: HTTP_INTERCEPTORS,
@@ -1183,9 +1219,22 @@ import { CmuResultsDetailComponent } from './reports/cmu/cmu-results-detail/cmu-
         CrrService,
         Utilities,
         NCUAService,
-        GalleryService        
+        GalleryService
     ],
     bootstrap: [AppComponent]
 })
 
 export class AppModule { }
+
+
+export function preloadLanguage(transloco: TranslocoService) {
+    return function() {
+      return () => {
+        console.log('preloadUser');
+        let lang = 'UK';
+        transloco.setActiveLang(lang);
+        return transloco.load(lang).toPromise();
+      }
+    };
+  }
+  

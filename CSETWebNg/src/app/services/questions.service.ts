@@ -22,7 +22,7 @@
 //
 ////////////////////////////////
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { APP_INITIALIZER, Injectable } from '@angular/core';
 // eslint-disable-next-line max-len
 import { Answer, DefaultParameter, ParameterForAnswer, Domain, Category, SubCategoryAnswers, QuestionResponse, SubCategory, Question } from '../models/questions.model';
 import { ConfigService } from './config.service';
@@ -37,10 +37,9 @@ const headers = {
   params: new HttpParams()
 };
 
+
 @Injectable()
 export class QuestionsService {
-
-
 
   /**
    * The TOC might make the API trip to get the questions.  If so,
@@ -73,8 +72,23 @@ export class QuestionsService {
     private assessmentSvc: AssessmentService,
     private questionFilterSvc: QuestionFilterService
   ) {
-    this.initializeAnswerButtonDefs();
+
   }
+
+  /**
+   * Eager loading to get language loaded up front
+   * @param transloco 
+   * @returns 
+   */
+  loadLoco(lang: string): Promise<void> {
+    return new Promise<void>(() => {
+      console.log(`loadLoco: ${lang}`);
+      this.tSvc.setActiveLang(lang);
+      this.tSvc.load(lang);
+    });
+
+  }
+
 
   /**
    * The page can store its model here for accessibility by question-extras
@@ -344,47 +358,6 @@ export class QuestionsService {
   }
 
 
-  private answerButtonDefs: any[] = [];
-
-  /**
-   * Incorporates settings from config.json into the
-   * service so that answer button properties can be searched.
-   */
-  initializeAnswerButtonDefs() {
-    // load default answer set
-    this.answerButtonDefs.push({
-      modelId: 0,
-      answers: this.configSvc.config.answersDefault
-    });
-
-    this.answerButtonDefs.push({
-      modelId: 9,
-      answers: this.configSvc.config.answersMVRA
-    });
-
-    this.answerButtonDefs.push({
-      modelId: 10,
-      answers: this.configSvc.config.answersISE
-    });
-
-    this.answerButtonDefs.push({
-      modelId: 11,
-      answers: this.configSvc.config.answersCPG
-    });
-
-    this.answerButtonDefs.push({
-      modelId: 12,
-      answers: this.configSvc.config.answersC2M2
-    });
-
-    // ACET labels are only used in the ACET skin
-    this.answerButtonDefs.push({
-      skin: 'ACET',
-      modelId: 1,
-      answers: this.configSvc.config.answersACET
-    });
-  }
-
   /**
    * Finds the button definition and return its CSS
    */
@@ -441,11 +414,13 @@ export class QuestionsService {
     }
 
     // first look for a skin-specific label set
-    let ans = this.answerButtonDefs.find(x => x.skin == this.configSvc.installationMode
-      && x.moduleName == modelName)?.answers.find(y => y.code == answerCode);
-    if (ans) {
-      return ans;
-    }
+    // let ans = this.answerButtonDefs.find(x => x.skin == this.configSvc.installationMode
+    //   && x.moduleName == modelName)?.answers.find(y => y.code == answerCode);
+    // if (ans) {
+    //   return ans;
+    // }
+
+    let ans = null;
 
     // next, look for a model-specific label set with no skin defined
     let model = this.configSvc.config.moduleBehaviors.find(x => x.moduleName == modelName);

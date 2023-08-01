@@ -27,6 +27,7 @@
     },
     "galleryLayout": "CSET",
     "installationMode": "TSA",
+    "userLanguage": "UK",
     "mobileEnvironment": "",
     "behaviors": {
         "defaultTitle": "CSET",

@@ -27,6 +27,7 @@ import { DOCUMENT } from '@angular/common';
 import { concat } from "rxjs";
 import { tap } from "rxjs/operators";
 import { merge } from 'lodash';
+import { QuestionsService } from "./questions.service";
 
 @Injectable()
 export class ConfigService {
@@ -55,6 +56,8 @@ export class ConfigService {
 
   installationMode = "";
 
+  userLanguage = "EN";
+
   galleryLayout = "CSET";
 
   /**
@@ -75,16 +78,15 @@ export class ConfigService {
    *
    */
   async loadConfig() {
-
     if (!this.initialized) {
       this.isRunningInElectron = localStorage.getItem("isRunningInElectron") == "true";
 
       return this.http.get('assets/settings/config.json').toPromise().then(config => {
         this.config = config;
       }).then(() => {
-        const configPaths = []
+        const configPaths = [];
         this.config.currentConfigChain.forEach(configProfile => {
-          configPaths.push(`assets/settings/config.${configProfile}.json`)
+          configPaths.push(`assets/settings/config.${configProfile}.json`);
         });
 
         return concat(...configPaths.map(path => this.http.get(path)))
@@ -108,6 +110,7 @@ export class ConfigService {
     this.publicDomainName = this.config.publicDomainName;
     this.assetsUrl = "assets/";
     this.installationMode = this.config.installationMode;
+    this.userLanguage = this.config.userLanguage;
     let apiPort = this.config.api.port != "" ? ":" + this.config.api.port : "";
     let appPort = this.config.app.port != "" ? ":" + this.config.app.port : "";
     let apiProtocol = this.config.api.protocol + "://";

@@ -1,4 +1,16 @@
 {
+    "my assessments": "Мої оцінки",
+    "import": "Імпорт",
+    "export all": "Експортувати все",
+    "tools": "Інструменти",
+    "resource library": "Бібліотека ресурсів",
+    "help": "Довідка",
+    "new assessment": "Нова оцінка",
+    "status": "Статус",
+    "last modified": "Остання зміна",
+    "primary assessor": "Первинний оцінювач",
+    "prevent encryption": "запобігти шифруванню",
+
     "prepare": "Приготуйте",
     "assessment": "Оцінка",
     "results": "Результати",

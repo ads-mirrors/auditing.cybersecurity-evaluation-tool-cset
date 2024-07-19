@@ -31,6 +31,8 @@ public partial class REQUIREMENT_REFERENCES
 
     public int? Sequence { get; set; }
 
+    public bool Source_Doc { get; set; }
+
     [ForeignKey("Gen_File_Id")]
     [InverseProperty("REQUIREMENT_REFERENCES")]
     public virtual GEN_FILE Gen_File { get; set; }

@@ -126,8 +126,5 @@ public partial class GEN_FILE
     public virtual ICollection<REQUIREMENT_REFERENCES> REQUIREMENT_REFERENCES { get; set; } = new List<REQUIREMENT_REFERENCES>();
 
     [InverseProperty("Gen_File")]
-    public virtual ICollection<REQUIREMENT_SOURCE_FILES> REQUIREMENT_SOURCE_FILES { get; set; } = new List<REQUIREMENT_SOURCE_FILES>();
-
-    [InverseProperty("Gen_File")]
     public virtual ICollection<SET_FILES> SET_FILES { get; set; } = new List<SET_FILES>();
 }

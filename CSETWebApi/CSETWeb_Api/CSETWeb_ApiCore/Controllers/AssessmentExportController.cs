@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace CSETWebCore.Api.Controllers
@@ -59,6 +60,37 @@ namespace CSETWebCore.Api.Controllers
             }
 
             return null;
+        }
+
+        [HttpGet]
+        [Route("api/assessment/exportAndSend")]
+        public async Task<IActionResult> ExportAndSendAssessment([FromQuery] string token, [FromQuery] string targetUrl)
+        {
+            try
+            {
+                _token.SetToken(token);
+
+                int assessmentId = _token.AssessmentForUser(token);
+                
+                // Export the assessment
+                var exportManager = new AssessmentExportManager(_context);
+                var exportFile = exportManager.ExportAssessment(assessmentId, ".zip", string.Empty, string.Empty);
+                
+                // determine extension (.csetw, .acet)
+                string ext = IOHelper.GetExportFileExtension(_token.Payload(Constants.Constants.Token_Scope));
+
+                AssessmentExportFile result = new AssessmentExportManager(_context).ExportAssessment(assessmentId, ext);
+
+                // send the file to the target URL
+                //await new AssessmentExportManager(_context).SendAssessment(result, targetUrl);
+
+                return Ok();
+            }
+            catch (Exception exc)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Error($"... {exc}");
+                return StatusCode(500, exc.Message);
+            }
         }
 
 

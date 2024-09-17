@@ -74,7 +74,7 @@ export class AnalyticsComponent implements OnInit {
             if (!!info && info.cancel) {
                 // user canceled, do nothing
             } else {
-                window.open(this.config.analyticsUrl + "index.html", "_blank");
+                window.open(this.config.enterpriseUrl + "index.html", "_blank");
             }
         });
     }

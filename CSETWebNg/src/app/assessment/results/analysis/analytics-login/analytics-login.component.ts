@@ -117,7 +117,7 @@ export class AnalyticsloginComponent implements OnInit {
    * Take user to page where they can register as a new user.
    */
   register() {
-    window.open(this.config.analyticsUrl + "index.html", "_blank");
+    window.open(this.config.enterpriseUrl + "index.html", "_blank");
   }
 
   openSnackBar(message) {

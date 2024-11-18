@@ -25,7 +25,7 @@
     <div class="flex-container">
         <div class="column mt-3">
             <p class="report-title">
-                GAP
+                ACTION ITEMS
             </p>
             <p class="report-title">
                 REPORT
@@ -46,8 +46,8 @@
                                 ">
 
                     <div class="title-page-name">{{this.demographics?.assessment_Name}}</div>
-                    <div class="title-page-content">{{this.demographics?.assessment_Date |
-                        localizeDate}}
+                    <div class="title-page-content">
+                        <!-- {{this.demographics?.assessment_Date | localizeDate}} -->
                     </div>
                     <div class="title-page-content">{{this.demographics?.assessor_Name}}</div>
                 </div>
@@ -98,13 +98,19 @@
                             <div class="h2 report-text-blue">Gaps</div>
                         </div>
                     </div>
-                    <!-- Distribution of action items by implementation status. -->
                     <br>
                     <br>
-                    <app-hydro-report-deficiency [questionMap]="questionList"></app-hydro-report-deficiency>
+
+                    <div *ngFor="let section of questionList.groupings">
+                        <div *ngIf="!!section" class="w-100">
+                            <app-grouping-block-nested-report [grouping]="section"></app-grouping-block-nested-report>
+                        </div>
+        
+                        <div class="page-break w-100">
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </ng-template>
     </div>
 </div>

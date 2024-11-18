@@ -3,16 +3,16 @@ import { AssessmentService } from '../../../services/assessment.service';
 import { CisService } from '../../../services/cis.service';
 import { HydroService } from '../../../services/hydro.service';
 import { MaturityService } from '../../../services/maturity.service';
+import { QuestionsNestedService } from '../../../services/questions-nested.service';
 import { QuestionsService } from '../../../services/questions.service';
 import { ReportService } from '../../../services/report.service';
-import { QuestionsNestedService } from '../../../services/questions-nested.service';
 
 @Component({
-  selector: 'app-hydro-gap-report',
-  templateUrl: './hydro-gap-report.component.html',
-  styleUrls: ['./hydro-gap-report.component.scss', '../../reports.scss', '../../../../assets/sass/cset-font-styles.css','../../acet-reports.scss']
+  selector: 'app-hydro-answeredquestions',
+  templateUrl: './hydro-answeredquestions.component.html',
+  styleUrls: ['./hydro-answeredquestions.component.scss', '../../reports.scss', '../../../../assets/sass/cset-font-styles.css','../../acet-reports.scss']
 })
-export class HydroGapReportComponent implements OnInit {
+export class HydroAnsweredquestionsComponent implements OnInit {
 
   demographics: any;
   actionItems: any[] = [];

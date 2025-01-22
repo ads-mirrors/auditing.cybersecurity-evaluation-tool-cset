@@ -31,9 +31,10 @@ import { Vendor } from '../../../models/diagram-vulnerabilities.model';
 import { AssessmentService } from '../../../services/assessment.service';
 
 @Component({
-  selector: 'app-diagram-inventory',
-  templateUrl: './diagram-inventory.component.html',
-  styleUrls: ['./diagram-inventory.component.scss']
+    selector: 'app-diagram-inventory',
+    templateUrl: './diagram-inventory.component.html',
+    styleUrls: ['./diagram-inventory.component.scss'],
+    standalone: false
 })
 export class DiagramInventoryComponent implements OnInit,AfterViewInit {
 

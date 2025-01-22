@@ -5,9 +5,10 @@ import { MalcolmUploadErrorComponent } from '../malcolm-upload-error.component';
 import { MalcolmService } from '../../../services/malcolm.service';
 
 @Component({
-  selector: 'app-malcolm-instructions',
-  templateUrl: './malcolm-instructions.component.html',
-  styleUrls: ['./malcolm-instructions.component.scss']
+    selector: 'app-malcolm-instructions',
+    templateUrl: './malcolm-instructions.component.html',
+    styleUrls: ['./malcolm-instructions.component.scss'],
+    standalone: false
 })
 export class MalcolmInstructionsComponent {
     iperror: boolean;

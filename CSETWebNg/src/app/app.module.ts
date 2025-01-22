@@ -76,9 +76,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import {
-  MAT_DATE_LOCALE,
-  MatNativeDateModule,
-  MatRippleModule
+    MAT_DATE_LOCALE,
+    MatNativeDateModule,
+    MatRippleModule
 } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -96,8 +96,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
-
-import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HotkeyModule } from 'angular2-hotkeys';
@@ -690,7 +688,8 @@ import { RolesChangedComponent } from './dialogs/roles-changed/roles-changed.com
 import { AnalyticsResultsComponent } from './assessment/results/analytics-results/analytics-results.component';
 
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         InitialComponent,
         LoginComponent,
@@ -1225,8 +1224,8 @@ import { AnalyticsResultsComponent } from './assessment/results/analytics-result
         AllAnsweredquestionsComponent,
         AllCommentsmarkedComponent,
         AllReviewedComponent,
-        QuestionsReviewedComponent, 
-        RolesChangedComponent, 
+        QuestionsReviewedComponent,
+        RolesChangedComponent,
         AnalyticsResultsComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
@@ -1308,7 +1307,6 @@ import { AnalyticsResultsComponent } from './assessment/results/analytics-result
         // MatMenuModule,
         // MatTabsModule,
         ReactiveFormsModule,
-        NgxSliderModule,
         // TextareaAutosizeModule,
         FileUploadModule,
         AngularEditorModule,
@@ -1324,8 +1322,8 @@ import { AnalyticsResultsComponent } from './assessment/results/analytics-result
         CodeEditorModule.forRoot({
             typingsWorkerUrl: 'assets/workers/typings-worker.js',
             baseUrl: 'assets/monaco'
-        })], 
-        providers: [
+        })],
+    providers: [
         TranslocoService,
         provideTranslocoScope('tutorial', 'reports'),
         ConfigService,
@@ -1340,9 +1338,9 @@ import { AnalyticsResultsComponent } from './assessment/results/analytics-result
                             .load(configSvc.config.defaultLang)
                             .toPromise()
                             .then(() => {
-                            tSvc.setActiveLang(configSvc.config.defaultLang);
-                            return authSvc.checkLocal();
-                        });
+                                tSvc.setActiveLang(configSvc.config.defaultLang);
+                                return authSvc.checkLocal();
+                            });
                     });
                 };
             },
@@ -1406,5 +1404,6 @@ import { AnalyticsResultsComponent } from './assessment/results/analytics-result
         FooterService,
         AnalyticsService,
         provideHttpClient(withInterceptorsFromDi())
-    ] })
+    ]
+})
 export class AppModule { }

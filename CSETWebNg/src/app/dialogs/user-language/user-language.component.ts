@@ -7,8 +7,9 @@ import { ConfigService } from '../../services/config.service';
 import { DateAdapter } from '@angular/material/core';
 
 @Component({
-  selector: 'app-user-language',
-  templateUrl: './user-language.component.html'
+    selector: 'app-user-language',
+    templateUrl: './user-language.component.html',
+    standalone: false
 })
 export class UserLanguageComponent implements OnInit {
 

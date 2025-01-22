@@ -36,7 +36,8 @@ import { MalcolmInstructionsComponent } from '../../../dialogs/malcolm/malcolm-i
 
 @Component({
     selector: 'app-info',
-    templateUrl: './diagram-info.component.html'
+    templateUrl: './diagram-info.component.html',
+    standalone: false
 })
 export class DiagramInfoComponent implements OnInit {
 

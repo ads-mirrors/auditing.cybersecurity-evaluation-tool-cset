@@ -36,9 +36,10 @@ import { AssessmentService } from '../../services/assessment.service';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
-  selector: 'site-summary',
-  templateUrl: './site-summary.component.html',
-  styleUrls: ['../reports.scss']
+    selector: 'site-summary',
+    templateUrl: './site-summary.component.html',
+    styleUrls: ['../reports.scss'],
+    standalone: false
 })
 export class SiteSummaryComponent implements OnInit, AfterViewInit {
   chartStandardsSummary: Chart;

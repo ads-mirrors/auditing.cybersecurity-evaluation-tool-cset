@@ -742,6 +742,30 @@ table.td-align-top td {
   color: $gray-800 !important;
 }
 
+.form-switch.cset {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+}
+
+.form-switch.cset .form-check-input {
+  font-size: 1.5rem;
+  margin-left: inherit;
+  margin-top: 0;
+  border-color: $primary-color;
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.8%29'/%3e%3c/svg%3e")
+}
+
+.form-switch.cset .form-check-input:checked {
+  background-color: $primary-color;
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 1%29'/%3e%3c/svg%3e")
+}
+
+.form-switch.cset label {
+  cursor: pointer;
+}
+
 .btn-primary {
   color: $gray-100 !important;
   background-color: $secondary-color !important;

@@ -74,19 +74,12 @@
       <div class="col-6">
         <div class="row">
           <label for="name" class="form-label">{{t('pcii requested')}}</label>
-          <div class="btn-group col-10" style="padding-left: 0px;" role="group" data-toggle="buttons">
-            <label class="btn btn-level btn-rounded form-check-label" [class.active]="assessment.is_PCII">
-              <input class="btn-check" name="standardYes" id="standardYes" type="radio" autocomplete="off"
-                (change)="changeIsPCII(true)" tabindex="0" [(ngModel)]="assessment.is_PCII" />
-              Yes
-            </label>
-            <label class="btn btn-level btn-rounded form-check-label" [class.active]="!assessment.is_PCII">
-              <input class="btn-check" name="standardNo" id="standardNo" type="radio" autocomplete="off"
-                (change)="changeIsPCII(false)" tabindex="0" [ngModel]="!assessment.is_PCII"
-                (ngModelChange)="assessment.is_PCII = $event" />
-              No
-            </label>
+
+          <div class="form-check form-switch cset">
+            <input class="form-check-input" type="checkbox" role="switch" id="swPcii" (change)="changeIsPCII($event)" [checked]="assessment.is_PCII">
+            <label for="swPcii">{{t('pcii requested')}}</label>
           </div>
+
         </div>
       </div>
       <div class="col-6" *ngIf="IsPCII">

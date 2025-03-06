@@ -89,10 +89,11 @@ export class AssessmentConfigIodComponent implements OnInit {
     this.assessSvc.updateAssessmentDetails(this.assessment);
   }
 
-  changeIsPCII(val: boolean) {
+  changeIsPCII(evt: any) {
+    console.log(evt.target.checked);
     if (this.assessment) {
-      this.IsPCII = val;
-      this.assessment.is_PCII = val;
+      this.IsPCII = evt.target.checked;
+      this.assessment.is_PCII = evt.target.checked;
 
       this.configSvc.cisaAssessorWorkflow = true;
       this.assessSvc.updateAssessmentDetails(this.assessment);

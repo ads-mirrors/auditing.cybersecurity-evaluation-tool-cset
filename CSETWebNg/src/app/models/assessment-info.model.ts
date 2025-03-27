@@ -42,6 +42,7 @@ export interface AssessmentDetail {
     creditUnion?: string;
     assets?: string;
 
+    galleryItemGuid?: string;
     // a few demographics to track
     sectorId?: number;
     industryId?: number;
@@ -107,8 +108,13 @@ export interface AssessmentContactsResponse {
 
 export interface Demographic {
     assessment_Id?: number;
+
+    // PPD-21 or NIPP
+    sectorDirective?: string;
+
     sectorId?: number;
     industryId?: number;
+    
     size?: number;
     assetValue?: number;
     needsPrivacy?: boolean;
@@ -226,4 +232,8 @@ export interface CriticalServiceInfo {
     pointOfContact?: number;
     sectorId?: any;
     size?: any;
+}
+export interface Upgrades {
+    name: string;
+    target: string;
 }

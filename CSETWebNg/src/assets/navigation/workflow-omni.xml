@@ -317,4 +317,5 @@
 
     </node>
 
+<node displaytext="Analytics" id="analytics" path="assessment/{:id}/results/analytics" visible="TRUE"/>
 </nav>

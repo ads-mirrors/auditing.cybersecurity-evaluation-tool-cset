@@ -18,6 +18,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 
 namespace CSETWebCore.Api.Controllers
@@ -66,6 +67,7 @@ namespace CSETWebCore.Api.Controllers
             return Ok();
         }
 
+
         /// <summary>
         /// export assessment and send it to enterprise using enterprise token
         /// </summary>
@@ -78,6 +80,12 @@ namespace CSETWebCore.Api.Controllers
             try
             {
                 var assessmentId = _token.AssessmentForUser();
+
+                // get the remote server token from the request headers
+                var authHeader = Request.Headers["Authorization2"].FirstOrDefault();
+                var remoteToken = authHeader.Substring("Bearer ".Length).Trim();
+                _token.SetEnterpriseToken(remoteToken);
+
 
                 string url = _configuration["AssessmentUploadUrl"];
                 // Export the assessment
@@ -138,6 +146,7 @@ namespace CSETWebCore.Api.Controllers
 
             return null;
         }
+
 
         /// <summary>
         /// Send file to external API

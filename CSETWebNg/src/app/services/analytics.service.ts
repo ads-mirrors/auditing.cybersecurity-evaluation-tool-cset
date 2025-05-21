@@ -65,7 +65,10 @@ export class AnalyticsService {
    * 
    */
   postAnalyticsWithLogin(token): any {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders({
+  //    'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+      'Authorization2': `Bearer ${token}`
+    });
     return this.http.get(this.baseUrl + 'assessment/exportandsend', { headers, observe: 'response', responseType: 'blob' });
   }
 }

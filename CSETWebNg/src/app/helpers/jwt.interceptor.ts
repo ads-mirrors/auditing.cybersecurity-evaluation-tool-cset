@@ -36,13 +36,25 @@ export class JwtInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
+    console.log('intercept');
+    console.log(request.headers);
+
+    const origHeadersObj = request.headers.keys().reduce((acc, key) => {
+      acc[key] = request.headers.getAll(key);
+      return acc;
+    }, {});
+
+
     // add authorization header with jwt token if available 
     // and the requestor did not provide one
     if (!request.headers.has('authorization')) {
+      console.log(1);
       if (
         localStorage.getItem('userToken') &&
         localStorage.getItem('userToken').length > 1
       ) {
+        console.log(2);
         request.headers.append('Content-Type', 'application/json');
         request = request.clone({
           setHeaders: {
@@ -51,6 +63,18 @@ export class JwtInterceptor implements HttpInterceptor {
         });
       }
     }
+
+    // include any headers in the original request
+    for (const key in origHeadersObj) {
+      if (origHeadersObj.hasOwnProperty(key)) {
+        console.log(`${key}: ${origHeadersObj[key]}`);
+        request.headers.append(key, origHeadersObj[key]);
+      }
+    }
+
+    console.log('after restore');
+    console.log(request.headers);
+
 
     return next.handle(request)
       .pipe(

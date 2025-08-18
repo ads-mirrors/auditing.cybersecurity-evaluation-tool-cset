@@ -80,13 +80,10 @@ namespace CSETWebCore.Business.AssessmentIO.Export
             TinyMapper.Bind<CUSTOM_QUESTIONAIRE_QUESTIONS, jCUSTOM_QUESTIONAIRE_QUESTIONS>();
             TinyMapper.Bind<CUSTOM_QUESTIONAIRES, jCUSTOM_QUESTIONAIRES>();
             TinyMapper.Bind<DEMOGRAPHIC_ANSWERS, jDEMOGRAPHIC_ANSWERS>();
-            TinyMapper.Bind<DEMOGRAPHICS, jDEMOGRAPHICS>();
             TinyMapper.Bind<DETAILS_DEMOGRAPHICS, jDETAILS_DEMOGRAPHICS>();
             TinyMapper.Bind<DIAGRAM_CONTAINER, jDIAGRAM_CONTAINER>();
             TinyMapper.Bind<DOCUMENT_ANSWERS, jDOCUMENT_ANSWERS>();
             TinyMapper.Bind<DOCUMENT_FILE, jDOCUMENT_FILE>();
-            TinyMapper.Bind<FINANCIAL_ASSESSMENT_VALUES, jFINANCIAL_ASSESSMENT_VALUES>();
-            TinyMapper.Bind<FINANCIAL_HOURS, jFINANCIAL_HOURS>();
             TinyMapper.Bind<FINDING, jFINDING>();
             TinyMapper.Bind<FINDING_CONTACT, jFINDING_CONTACT>();
             TinyMapper.Bind<FRAMEWORK_TIER_TYPE_ANSWER, jFRAMEWORK_TIER_TYPE_ANSWER>();
@@ -173,11 +170,6 @@ namespace CSETWebCore.Business.AssessmentIO.Export
             foreach (var item in _context.DETAILS_DEMOGRAPHICS.Where(x => x.Assessment_Id == assessmentId))
             {
                 model.jDETAILS_DEMOGRAPHICS.Add(TinyMapper.Map<DETAILS_DEMOGRAPHICS, jDETAILS_DEMOGRAPHICS>(item));
-            }
-
-            foreach (var item in _context.DEMOGRAPHICS.Where(x => x.Assessment_Id == assessmentId))
-            {
-                model.jDEMOGRAPHICS.Add(TinyMapper.Map<DEMOGRAPHICS, jDEMOGRAPHICS>(item));
             }
 
             foreach (var item in _context.METRO_ANSWERS.Where(x => x.Assessment_Id == assessmentId))
@@ -355,17 +347,6 @@ namespace CSETWebCore.Business.AssessmentIO.Export
                 model.jSUB_CATEGORY_ANSWERS.Add(TinyMapper.Map<SUB_CATEGORY_ANSWERS, jSUB_CATEGORY_ANSWERS>(item));
             }
 
-            // NCUA data
-            foreach (var item in _context.FINANCIAL_HOURS.Where(x => x.Assessment_Id == assessmentId))
-            {
-                model.jFINANCIAL_HOURS.Add(TinyMapper.Map<FINANCIAL_HOURS, jFINANCIAL_HOURS>(item));
-            }
-
-            foreach (var item in _context.FINANCIAL_ASSESSMENT_VALUES.Where(x => x.Assessment_Id == assessmentId))
-            {
-                model.jFINANCIAL_ASSESSMENT_VALUES.Add(TinyMapper.Map<FINANCIAL_ASSESSMENT_VALUES, jFINANCIAL_ASSESSMENT_VALUES>(item));
-            }
-
             foreach (var item in _context.ASSESSMENTS_REQUIRED_DOCUMENTATION.Where(x => x.Assessment_Id == assessmentId))
             {
                 model.jASSESSMENTS_REQUIRED_DOCUMENTATION.Add(TinyMapper.Map<ASSESSMENTS_REQUIRED_DOCUMENTATION, jASSESSMENTS_REQUIRED_DOCUMENTATION>(item));
@@ -464,6 +445,16 @@ namespace CSETWebCore.Business.AssessmentIO.Export
                 {
                     item.StringValue = null;
                 }
+                
+                if (item.DataItemName == "SUBSECTOR")
+                {
+                    item.IntValue = null;
+                }
+                
+                if (item.DataItemName == "ORG-NAME")
+                {
+                    item.StringValue = null;
+                }
             }
 
             foreach (var item in model.jCIS_CSI_SERVICE_COMPOSITION)
@@ -485,18 +476,11 @@ namespace CSETWebCore.Business.AssessmentIO.Export
 
             model.jASSESSMENT_CONTACTS = null;
 
-            foreach (var item in model.jDEMOGRAPHICS)
-            {
-                item.Agency = null;
-                item.IndustryId = null;
-                item.OrganizationName = null;
-            }
-
             foreach (var item in model.jASSESSMENTS)
             {
+                item.Is_PCII = false;
                 item.PCII_Number = null;
             }
-
 
             return model;
         }

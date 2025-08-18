@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ConfigService } from './config.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +15,7 @@ export class AnalyticsService {
   };
 
   /**
-   * 
+   *
    */
   constructor(private http: HttpClient, private configSvc: ConfigService) {
     this.baseUrl = this.configSvc.apiUrl;
@@ -25,21 +24,21 @@ export class AnalyticsService {
   }
 
   /**
-   * 
+   *
    */
   getAnalytics(): any {
     return this.http.get(this.apiUrl + 'getAggregation');
   }
 
   /**
-   * 
+   *
    */
   isCisaAssessorMode() {
     return this.configSvc.installationMode == "IOD";
   }
 
   /**
-   * 
+   *
    */
   getAnalyticResults(maturityModelId: number, sectorId?: number): any {
     let url = this.apiUrl + "maturity/bars?"
@@ -53,19 +52,57 @@ export class AnalyticsService {
   }
 
   /**
-   * 
+   * Use remote credentials to get the remote token
    */
   getAnalyticsToken(username, password): any {
+    let obj = JSON.stringify({
+      Email: username,
+      Password: password,
+      TzOffset: new Date().getTimezoneOffset().toString(),
+      Scope: "CSET"
+    });
+
+    //Custom header to avoid interceptor from adding the authorization header + token
+    let headers = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('noauth', 'true'),
+      params: new HttpParams()
+    };
+
     return this.http.post(
-      this.analyticsUrl + 'auth/login', { "email": username, password }, this.headers
+      this.analyticsUrl + 'auth/login', obj, headers
     );
   }
 
   /**
-   * 
+   * Check
    */
-  postAnalyticsWithLogin(token): any {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(this.baseUrl + 'assessment/exportandsend', { headers, observe: 'response', responseType: 'blob' });
+  isRemoteTokenValid(tokenString: string | null) {
+    // the TokenManager in the API will throw a 401 for an empty string
+    if (!tokenString) {
+      tokenString = 'abc';
+    }
+
+    //Custom header to avoid interceptor from adding the authorization header + token
+    let headers = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('noauth', 'true').set('x-cset-noauth', 'true'),
+      params: new HttpParams()
+    };
+
+    return this.http.post(this.analyticsUrl + 'auth/istokenvalid', JSON.stringify(tokenString), headers);
+  }
+
+  /**
+   *
+   */
+  postAnalytics(remoteToken: string): any {
+    let headers = {
+      headers: new HttpHeaders()
+        .set('RemoteAuthorization', remoteToken)
+        .set('Content-Type', 'application/json')
+        .set('x-cset-noauth', 'true'),
+      params: new HttpParams()
+    };
+
+    return this.http.get(this.baseUrl + 'assessment/exportandsend', headers);
   }
 }

@@ -14,7 +14,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -34,7 +33,7 @@ namespace CSETWebCore.Helpers
         private CSETContext _context;
         private static string _secret = null;
         private static object _myLockObject = new object();
-        
+
 
 
         /// <summary>
@@ -57,7 +56,8 @@ namespace CSETWebCore.Helpers
                 if (!string.IsNullOrEmpty(req.Headers["Authorization"]))
                 {
                     _tokenString = req.Headers["Authorization"];
-                    Init(_tokenString);
+                    // Do not call Init() here - defer validation until token is actually needed
+                    // This prevents exceptions during dependency injection
                 }
             }
         }
@@ -141,6 +141,7 @@ namespace CSETWebCore.Helpers
         /// <returns></returns>
         public string Payload(string claim)
         {
+            Init(); // Ensure token is initialized before accessing
             return ReadTokenPayload(_token, claim);
         }
 
@@ -153,32 +154,13 @@ namespace CSETWebCore.Helpers
         /// <returns></returns>
         public int? PayloadInt(string claim)
         {
+            Init(); // Ensure token is initialized before accessing
             var val = ReadTokenPayload(_token, claim);
             int result;
             bool b = int.TryParse(val, out result);
             if (b) return result;
             return null;
         }
-
-
-        ///// <summary>
-        ///// Creates a JWT with payload claims for the specified userid.
-        ///// </summary>
-        ///// <returns></returns>
-        //public string GenerateToken(int userId, string accessKey, string tzOffset, int expSeconds, int? assessmentId, int? aggregationId, string scope)
-        //{
-        //    return Blah(userId, null, tzOffset, expSeconds, assessmentId, aggregationId, scope);
-        //}
-
-
-        ///// <summary>
-        ///// Creates a JWT with payload claims for the specified access key.
-        ///// </summary>
-        ///// <returns></returns>
-        //public string GenerateToken(string accessKey, string tzOffset, int expSeconds, int? assessmentId, int? aggregationId, string scope)
-        //{
-        //    return Blah(null, accessKey, tzOffset, expSeconds, assessmentId, aggregationId, scope);
-        //}
 
 
         /// <summary>
@@ -257,9 +239,6 @@ namespace CSETWebCore.Helpers
 
             return handler.WriteToken(secToken);
         }
-
-
-
 
 
         /// <summary>
@@ -534,12 +513,23 @@ namespace CSETWebCore.Helpers
 
         public int AssessmentForUser(String tokenString)
         {
-            SetToken(tokenString);
-            int? userId = PayloadInt(Constants.Constants.Token_UserId);
-            string accessKey = Payload(Constants.Constants.Token_AccessKey);
-            int? assessmentId = PayloadInt(Constants.Constants.Token_AssessmentId);
+            SetEnterpriseToken(tokenString);
+            return AssessmentForUser();
+        }
 
-            return AssessmentForUser(userId, accessKey, assessmentId);
+        public bool IsUserAuthorizedForAssessment()
+        {
+            try
+            {
+                var assessment = AssessmentForUser();
+                if (assessment != null)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
 

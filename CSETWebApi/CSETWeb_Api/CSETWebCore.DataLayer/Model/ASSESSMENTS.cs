@@ -73,6 +73,8 @@ public partial class ASSESSMENTS
 
     public bool ModifiedSinceLastExport { get; set; }
 
+    public bool AssessorMode { get; set; }
+
     [InverseProperty("Assessment")]
     public virtual ICollection<ACCESS_KEY_ASSESSMENT> ACCESS_KEY_ASSESSMENT { get; set; } = new List<ACCESS_KEY_ASSESSMENT>();
 
@@ -126,9 +128,6 @@ public partial class ASSESSMENTS
     public virtual ICollection<COUNTY_ANSWERS> COUNTY_ANSWERS { get; set; } = new List<COUNTY_ANSWERS>();
 
     [InverseProperty("Assessment")]
-    public virtual DEMOGRAPHICS DEMOGRAPHICS { get; set; }
-
-    [InverseProperty("Assessment")]
     public virtual DEMOGRAPHIC_ANSWERS DEMOGRAPHIC_ANSWERS { get; set; }
 
     [InverseProperty("Assessment")]
@@ -138,19 +137,13 @@ public partial class ASSESSMENTS
     public virtual ICollection<DOCUMENT_FILE> DOCUMENT_FILE { get; set; } = new List<DOCUMENT_FILE>();
 
     [InverseProperty("Assessment")]
-    public virtual ICollection<FINANCIAL_ASSESSMENT_VALUES> FINANCIAL_ASSESSMENT_VALUES { get; set; } = new List<FINANCIAL_ASSESSMENT_VALUES>();
-
-    [InverseProperty("Assessment")]
-    public virtual ICollection<FINANCIAL_DOMAIN_FILTERS> FINANCIAL_DOMAIN_FILTERS { get; set; } = new List<FINANCIAL_DOMAIN_FILTERS>();
-
-    [InverseProperty("Assessment")]
-    public virtual ICollection<FINANCIAL_HOURS> FINANCIAL_HOURS { get; set; } = new List<FINANCIAL_HOURS>();
-
-    [InverseProperty("Assessment")]
     public virtual ICollection<FRAMEWORK_TIER_TYPE_ANSWER> FRAMEWORK_TIER_TYPE_ANSWER { get; set; } = new List<FRAMEWORK_TIER_TYPE_ANSWER>();
 
     [InverseProperty("Assessment")]
     public virtual ICollection<GENERAL_SAL> GENERAL_SAL { get; set; } = new List<GENERAL_SAL>();
+
+    [InverseProperty("Assessment")]
+    public virtual ICollection<GROUPING_SELECTION> GROUPING_SELECTION { get; set; } = new List<GROUPING_SELECTION>();
 
     [ForeignKey("GalleryItemGuid")]
     [InverseProperty("ASSESSMENTS")]

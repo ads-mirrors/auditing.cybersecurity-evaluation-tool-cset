@@ -475,6 +475,21 @@ namespace CSETWebCore.Api.Controllers
 
                 // update user detail                    
                 var user = _context.USERS.Where(x => x.UserId == userBeingUpdated.UserId).FirstOrDefault();
+                
+                // Check if the new email already exists for a different user
+                if (!string.IsNullOrEmpty(userBeingUpdated.PrimaryEmail) && 
+                    userBeingUpdated.PrimaryEmail != user.PrimaryEmail)
+                {
+                    var existingUserWithEmail = _context.USERS
+                        .Where(x => x.PrimaryEmail == userBeingUpdated.PrimaryEmail && x.UserId != userBeingUpdated.UserId)
+                        .FirstOrDefault();
+                    
+                    if (existingUserWithEmail != null)
+                    {
+                        return BadRequest($"A user with email '{userBeingUpdated.PrimaryEmail}' already exists.");
+                    }
+                }
+                
                 user.FirstName = userBeingUpdated.FirstName;
                 user.LastName = userBeingUpdated.LastName;
                 user.PrimaryEmail = userBeingUpdated.PrimaryEmail;
@@ -683,10 +698,11 @@ namespace CSETWebCore.Api.Controllers
             if (ac.Last_Q_Answered != null)
             {
                 string group = "";
-                group = ac.Last_Q_Answered.Split(',').ToList().Find(x => x.StartsWith("MG:")).Replace("MG:", "");
+                group = ac.Last_Q_Answered.Split(',').ToList().Find(x => x.StartsWith("MG:"));
 
                 if (group != null)
                 {
+                    group = group.Replace("MG:", "");
                     int groupInt = group.ToInt32();
                     int? parentGroupId = _context.MATURITY_GROUPINGS.Where(x => x.Grouping_Id == groupInt).Select(x => x.Parent_Id).FirstOrDefault();
                     if (parentGroupId != null)

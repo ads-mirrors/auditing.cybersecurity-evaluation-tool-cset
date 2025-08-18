@@ -7,6 +7,7 @@ import { ConfigService } from '../../../../services/config.service';
 import { DemographicIodService } from '../../../../services/demographic-iod.service';
 import { DemographicService } from '../../../../services/demographic.service';
 import { Upgrades } from '../../../../models/assessment-info.model';
+import { NavigationService } from '../../../../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-assessment-config-iod',
@@ -23,11 +24,13 @@ export class AssessmentConfigIodComponent implements OnInit {
   showUpgrade: boolean = false;
   targetModel: string = '';
 
+
   constructor(
     private assessSvc: AssessmentService,
     private demoSvc: DemographicService,
     private iodDemoSvc: DemographicIodService,
-    private configSvc: ConfigService
+    private configSvc: ConfigService,
+    private navSvc: NavigationService
   ) { }
 
   ngOnInit() {
@@ -51,7 +54,6 @@ export class AssessmentConfigIodComponent implements OnInit {
         }
       })
     }
-
   }
 
   /**
@@ -59,20 +61,11 @@ export class AssessmentConfigIodComponent implements OnInit {
    */
   getAssessmentDetail() {
     this.assessment = this.assessSvc.assessment;
-    this.IsPCII = this.assessment.is_PCII;
-    // a few things for a brand new assessment
-    if (this.assessSvc.isBrandNew) {
-      // RRA install presets the maturity model
-      if (this.configSvc.installationMode === 'RRA') {
-        this.assessSvc.setRraDefaults();
-        this.assessSvc.updateAssessmentDetails(this.assessment);
-      }
-    }
-
+    this.IsPCII = this.assessment.is_PCII ?? false;
 
     this.assessSvc.isBrandNew = false;
     // Null out a 'low date' so that we display a blank
-    const assessDate: Date = new Date(this.assessment.assessmentDate);
+    const assessDate: Date = new Date(this.assessment.assessmentDate ?? '0001-01-01');
     if (assessDate.getFullYear() <= 1900) {
       this.assessment.assessmentDate = null;
     }
@@ -84,7 +77,7 @@ export class AssessmentConfigIodComponent implements OnInit {
   update(e) {
     // default Assessment Name if it is left empty
     if (this.assessment) {
-      if (this.assessment.assessmentName.trim().length === 0) {
+      if (this.assessment.assessmentName?.trim().length === 0) {
         this.assessment.assessmentName = '(Untitled Assessment)';
       }
     }
@@ -98,10 +91,10 @@ export class AssessmentConfigIodComponent implements OnInit {
       this.assessment.is_PCII = evt.target.checked;
 
       if (!this.assessment.is_PCII) {
-        this.assessment.pciiNumber = null;
+        this.assessment.pciiNumber = undefined;
       }
 
-      this.configSvc.cisaAssessorWorkflow = true;
+      this.configSvc.userIsCisaAssessor = true;
       this.assessSvc.updateAssessmentDetails(this.assessment);
     }
   }
@@ -137,5 +130,15 @@ export class AssessmentConfigIodComponent implements OnInit {
 
   showFacilitator() {
     return this.configSvc.behaviors.showFacilitatorDropDown;
+  }
+
+  updateAssessorMode() {
+    this.assessment.assessorMode = !this.assessment.assessorMode;
+    // Sets assessment level assessor mode and navigates to configuration page in non-assessor mode
+    this.assessSvc.setAssessorSetting(this.assessment.assessorMode).subscribe(() => {
+      this.navSvc.navBack('info2');
+    });
+
+
   }
 }

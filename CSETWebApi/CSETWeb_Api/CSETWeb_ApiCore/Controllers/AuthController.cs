@@ -9,8 +9,10 @@ using CSETWebCore.Helpers;
 using CSETWebCore.Interfaces.Helpers;
 using CSETWebCore.Model.Auth;
 using CSETWebCore.Model.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace CSETWebCore.Api.Controllers
 {
@@ -66,25 +68,27 @@ namespace CSETWebCore.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/auth/login/standalone")]
-        public IActionResult LoginStandalone([FromBody] Login login)
+        public async Task<IActionResult> LoginStandalone([FromBody] Login login)
         {
             try
             {
                 _tokenManager.GenerateSecret();
                 lock (_locker)
                 {
-                    LoginResponse resp = _userAuthentication.AuthenticateStandalone(login, _tokenManager);
-                    if (resp != null)
-                    {
-                        return Ok(resp);
-                    }
-
-                    resp = new LoginResponse()
-                    {
-                        LinkerTime = new Helpers.BuildNumberHelper().GetLinkerTime()
-                    };
+                    // Note: We can't use await inside lock, but this should be fast
+                }
+                
+                LoginResponse resp = await _userAuthentication.AuthenticateStandalone(login, _tokenManager);
+                if (resp != null)
+                {
                     return Ok(resp);
                 }
+
+                resp = new LoginResponse()
+                {
+                    LinkerTime = new Helpers.BuildNumberHelper().GetLinkerTime()
+                };
+                return Ok(resp);
             }
             catch (Exception exc)
             {
@@ -180,6 +184,7 @@ namespace CSETWebCore.Api.Controllers
             return Ok(resp);
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -196,6 +201,22 @@ namespace CSETWebCore.Api.Controllers
             }
 
             return defaultInt;
+        }
+
+
+        /// <summary>
+        /// Performs a simple validity check for a provided
+        /// JWT string.  This is used by the export-to-enterprise
+        /// feature to know whether the current token is still
+        /// valid, or whether to prompt for credentials.
+        /// </summary>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/auth/istokenvalid")]
+        public IActionResult IsTokenValid([FromBody] string value)
+        {
+            _logger.Info("api/auth/istokenvalid");
+            return Ok(_tokenManager.IsTokenValid(value));
         }
 
 

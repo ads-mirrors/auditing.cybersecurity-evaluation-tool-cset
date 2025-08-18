@@ -30,20 +30,23 @@ import { ConfigService } from '../../../../services/config.service';
 import { NavigationService } from '../../../../services/navigation/navigation.service';
 import { AwwaStandardComponent } from '../../standards/awwa-standard/awwa-standard.component';
 import { AwwaService } from '../../../../services/awwa.service';
+import { DemographicService } from '../../../../services/demographic.service';
 
 
 @Component({
-    selector: 'app-assessment-detail',
-    templateUrl: './assessment-detail.component.html',
-    // eslint-disable-next-line
-    host: { class: 'd-flex flex-column flex-11a' },
-    standalone: false
+  selector: 'app-assessment-detail',
+  templateUrl: './assessment-detail.component.html',
+  // eslint-disable-next-line
+  host: { class: 'd-flex flex-column flex-11a' },
+  standalone: false
 })
 export class AssessmentDetailComponent implements OnInit {
 
   assessment: AssessmentDetail = {
     assessmentName: ''
   };
+
+  demographics: any = {};
 
   dialogRefAwwa: MatDialogRef<AwwaStandardComponent>;
   isAwwa = false;
@@ -53,6 +56,7 @@ export class AssessmentDetailComponent implements OnInit {
    */
   constructor(
     private assessSvc: AssessmentService,
+    public demoSvc: DemographicService,
     public navSvc: NavigationService,
     public awwaSvc: AwwaService,
     public configSvc: ConfigService,
@@ -60,27 +64,24 @@ export class AssessmentDetailComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
+  /**
+   * 
+   */
   ngOnInit() {
     if (this.assessSvc.id()) {
       this.getAssessmentDetail();
     }
-  }
 
+    this.demoSvc.getDemographic().subscribe((data: any) => {
+      this.demographics = data;
+    });
+  }
 
   /**
    * Called every time this page is loaded.
    */
   getAssessmentDetail() {
     this.assessment = this.assessSvc.assessment;
-
-    // a few things for a brand new assessment
-    if (this.assessSvc.isBrandNew) {
-      // RRA install presets the maturity model
-      if (this.configSvc.installationMode === 'RRA') {
-        this.assessSvc.setRraDefaults();
-        this.assessSvc.updateAssessmentDetails(this.assessment);
-      }
-    }
 
     this.assessSvc.isBrandNew = false;
     // Null out a 'low date' so that we display a blank
@@ -89,7 +90,7 @@ export class AssessmentDetailComponent implements OnInit {
       this.assessment.assessmentDate = null;
     }
 
-    this.isAwwa = this.assessment.standards?.includes('AWWA');
+    this.isAwwa = this.assessment.standards?.includes('AWWA') ?? false;
   }
 
   /**
@@ -98,11 +99,19 @@ export class AssessmentDetailComponent implements OnInit {
   update(e) {
     // default Assessment Name if it is left empty
     if (!!this.assessment) {
-      if (this.assessment.assessmentName.trim().length === 0) {
+      if (this.assessment.assessmentName?.trim().length === 0) {
         this.assessment.assessmentName = "(Untitled Assessment)";
       }
     }
     this.assessSvc.updateAssessmentDetails(this.assessment);
+  }
+
+  /**
+   * Included demographics support for persisting Technology Domain;
+   * this may expand in the future with additional data items.
+   */
+  updateDemographics() {
+    this.demoSvc.updateDemographic(this.demographics);
   }
 
   showAssessmentNameDisclaimer() {
@@ -138,5 +147,18 @@ export class AssessmentDetailComponent implements OnInit {
       }
       this.dialogRefAwwa = null;
     });
+  }
+
+  isCisaAssessorMode() {
+    // IOD means your in CISA Asssessor mode
+    return this.configSvc.installationMode == "IOD";
+  }
+  updateAssessorMode() {
+    this.assessment.assessorMode = !this.assessment.assessorMode;
+    // Sets assessment level assessor mode and navigates to configuration page in assessor mode
+    this.assessSvc.setAssessorSetting(this.assessment.assessorMode).subscribe(() => {
+      this.navSvc.navBack('csi2');
+    });
+
   }
 }

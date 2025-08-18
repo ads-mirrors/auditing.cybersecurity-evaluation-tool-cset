@@ -48,6 +48,33 @@
     <None Update="App_Data\AssessmentConversion\upgrades.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="App_Data\LanguagePacks\ES\DEMOGRAPHICS_ORGANIZATION_TYPE.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\DEMOGRAPHICS_SIZE.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\GALLERY_GROUP.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\GALLERY_ITEM.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\NEW_REQUIREMENT.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\NIST_SAL_INFO_TYPES_DEFAULTS.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\NIST_SAL_QUESTIONS.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\QUESTION_GROUP_HEADING.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\LanguagePacks\ES\STANDARD_CATEGORY.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="App_Data\ResponseFile\DocumentNotFound.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -148,7 +175,7 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.4.0" />
     <PackageReference Include="Npoi.Mapper" Version="6.2.2" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
     <PackageReference Include="TinyMapper" Version="3.0.3" />
@@ -163,7 +190,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dashboard\" />
     <Folder Include="Version\" />
     <Folder Include="Demographic\DemographicIO\" />
     <Folder Include="Demographic\DemographicIO\Export\" />
@@ -182,12 +208,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="App_Data\LanguagePacks\ES\GENERIC.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="App_Data\LanguagePacks\ES\IRP.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="App_Data\LanguagePacks\ES\IRP_HEADER.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="App_Data\LanguagePacks\ES\MATURITY_GROUPINGS.json">

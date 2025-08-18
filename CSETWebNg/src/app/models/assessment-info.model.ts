@@ -28,7 +28,7 @@ export interface AssessmentDetail {
     assessmentName?: string;
     createdDate?: string;
     creatorId?: number;
-    assessmentDate?: string;
+    assessmentDate?: string | null | undefined;
     assessmentEffectiveDate?: string;
     baselineAssessmentId?: number;
     facilityName?: string;
@@ -54,7 +54,6 @@ export interface AssessmentDetail {
     regionCode?: number;
     charterType?: number;
 
-    isAcetOnly?: boolean;
     workflow?: string;
     origin?: string;
     hiddenScreens?: string[];
@@ -70,6 +69,7 @@ export interface AssessmentDetail {
     typeDescription?: string;
     pciiNumber?: string;
     is_PCII?: boolean;
+    assessorMode?: boolean;
 }
 
 export interface MaturityModel {
@@ -114,7 +114,7 @@ export interface Demographic {
 
     sectorId?: number;
     industryId?: number;
-    
+
     size?: number;
     assetValue?: number;
     needsPrivacy?: boolean;
@@ -124,6 +124,9 @@ export interface Demographic {
     agency?: string;
     organizationType?: string;
     facilitatorId?: number;
+
+    // Technology Domain (IT vs OT)
+    techDomain?: string;
 
     // Organiztion POC
     orgPointOfContact?: number;
@@ -161,7 +164,6 @@ export interface AssessmentConfig {
     galleryItemGuid?: string;
     hiddenScreens?: any;
     id?: number;
-    isAcetOnly?: boolean;
     isE_StateLed?: boolean;
     is_PCII?: boolean;
     iseSubmitted?: boolean;

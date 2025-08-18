@@ -33,7 +33,7 @@ namespace CSETWebCore.Business.Demographic
         /// Returns an object containing the extended Demographics values.
         /// </summary>
         /// <returns></returns>
-        public DemographicExt GetDemographics(int assessmentId)
+        public DemographicExt GetExtDemographics(int assessmentId)
         {
             var assessment = _context.ASSESSMENTS.Where(x => x.Assessment_Id == assessmentId).FirstOrDefault();
             var info = _context.INFORMATION.Where(x => x.Id == assessmentId).FirstOrDefault();
@@ -235,57 +235,7 @@ namespace CSETWebCore.Business.Demographic
             }
             return null;
         }
-
-
-        /// <summary>
-        /// Saves the value as the specified type
-        /// </summary>
-        public void SaveX(int assessmentId, string recName, string value, string type)
-        {
-            switch (type)
-            {
-                case "int":
-                    int? i = null;
-                    if (value != "null")
-                    {
-                        i = int.Parse(value);
-                    }
-                    SaveX(assessmentId, recName, i);
-                    break;
-
-                case "string":
-                    SaveX(assessmentId, recName, value);
-                    break;
-
-                case "double":
-                    double? d = null;
-                    if (value != "null")
-                    {
-                        d = double.Parse(value);
-                    }
-                    SaveX(assessmentId, recName, d);
-                    break;
-
-                case "bool":
-                    bool? b = null;
-                    if (value != "null")
-                    {
-                        b = bool.Parse(value);
-                    }
-                    SaveX(assessmentId, recName, b);
-                    break;
-
-                case "date":
-                    SaveX(assessmentId, recName, DateTime.Parse(value));
-                    break;
-
-                default:
-                    // just save it as a string
-                    SaveX(assessmentId, recName, value);
-                    break;
-            }
-        }
-
+        
         /// <summary>
         /// Inserts or updates a single record in DETAILS_DEMOGRAPHICS.
         /// Queries for an existing record, so not the most efficient for a bulk update.
@@ -293,8 +243,6 @@ namespace CSETWebCore.Business.Demographic
         public void SaveX(int assessmentId, string recName, object value)
         {
             var rec = _context.DETAILS_DEMOGRAPHICS.Where(x => x.Assessment_Id == assessmentId && x.DataItemName == recName).FirstOrDefault();
-
-            this.ClearValues(assessmentId, recName);
 
             if (rec == null)
             {
@@ -340,32 +288,6 @@ namespace CSETWebCore.Business.Demographic
             _context.SaveChanges();
         }
 
-        //Clear out corresponding DEMOGRAPHICS values if new values set by assessor
-        public void ClearValues(int assessmentId, string recName)
-        {
-            var demo = _context.DEMOGRAPHICS.Where(x => x.Assessment_Id == assessmentId).FirstOrDefault();
-            var userId = _context.Assessments_For_User.Where(user => user.AssessmentId == assessmentId).FirstOrDefault();
-            var user = _context.USERS.Where(user => user.UserId == userId.UserId).FirstOrDefault();
-            if (user.CisaAssessorWorkflow && demo != null)
-            {
-                if (recName == "SECTOR")
-                {
-                    demo.SectorId = null;
-                }
-                if (recName == "ORG-TYPE")
-                {
-                    demo.OrganizationType = null;
-                    demo.IndustryId = null;
-
-                }
-                if (recName == "BUSINESS-UNIT")
-                {
-                    demo.Agency = null;
-                }
-            }
-            _context.SaveChanges();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -381,6 +303,7 @@ namespace CSETWebCore.Business.Demographic
                 .ToList();
 
             SaveInt(demographic.AssessmentId, "ORG-TYPE", demographic.OrganizationType, existingRecords);
+            SaveString(demographic.AssessmentId, "ORG-NAME", demographic.OrganizationName, existingRecords);
             SaveString(demographic.AssessmentId, "SECTOR-DIRECTIVE", demographic.SectorDirective, existingRecords);
             SaveInt(demographic.AssessmentId, "SECTOR", demographic.Sector, existingRecords);
             SaveInt(demographic.AssessmentId, "SUBSECTOR", demographic.Subsector, existingRecords);
@@ -410,29 +333,6 @@ namespace CSETWebCore.Business.Demographic
             SaveString(demographic.AssessmentId, "BARRIER1", demographic.Barrier1, existingRecords);
             SaveString(demographic.AssessmentId, "BARRIER2", demographic.Barrier2, existingRecords);
             SaveString(demographic.AssessmentId, "BUSINESS-UNIT", demographic.BusinessUnit, existingRecords);
-
-
-
-            // Some demographics fields are represented in both DEMOGRAPHICS and DETAILS_DEMOGRAPHICS.
-            // Until we settle on a single place to store the data, this method helps 
-            // to keep values in sync between the two locations.
-            var dbDemographics = _context.DEMOGRAPHICS.FirstOrDefault(x => x.Assessment_Id == demographic.AssessmentId);
-            if (dbDemographics == null)
-            {
-                dbDemographics = new DEMOGRAPHICS()
-                {
-                    Assessment_Id = demographic.AssessmentId
-                };
-                _context.DEMOGRAPHICS.Add(dbDemographics);
-            }
-
-            dbDemographics.Agency = demographic.BusinessUnit;
-            dbDemographics.SectorId = demographic.Sector;
-            dbDemographics.IndustryId = demographic.Subsector;
-            dbDemographics.OrganizationName = demographic.OrganizationName;
-            dbDemographics.OrganizationType = demographic.OrganizationType;
-
-
             _context.SaveChanges();
 
             AssessmentNaming.ProcessName(_context, userid, demographic.AssessmentId);

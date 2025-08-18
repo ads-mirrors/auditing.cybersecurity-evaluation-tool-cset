@@ -128,6 +128,8 @@ namespace UpgradeLibrary.Upgrade
             converters.Add("12.3.1.0", new ConvertDatabase12400(path));
             converters.Add("12.4.0.0", new ConvertDatabase12401(path));
             converters.Add("12.4.0.1", new ConvertDatabase12402(path));
+            converters.Add("12.4.0.2", new ConvertDatabase12403(path));
+            converters.Add("12.4.0.3", new ConvertDatabase12404(path));
         }
 
         public void UpgradeOnly(Version currentVersion, string tempConnect)
@@ -188,7 +190,7 @@ namespace UpgradeLibrary.Upgrade
             if (dbVersion > currentVersion)  //Assessmenet is newer than current
             {
                 throw new DatabaseUpgradeException("This database is a newer version of CSET.  Please upgrade to CSET " +
-                         dbVersion.ToString() + "or get a newer version of the upgrader");
+                         dbVersion.ToString() + " or get a newer version of the upgrader.");
             }
 
             //increase the database's comptibility level to latest

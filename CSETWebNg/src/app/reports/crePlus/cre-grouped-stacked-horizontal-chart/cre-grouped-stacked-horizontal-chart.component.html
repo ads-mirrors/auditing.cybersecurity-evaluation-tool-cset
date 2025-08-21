@@ -20,26 +20,20 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 -------------------------->
-<h1 class="text-center">
-     {{ modelDisplayName }}: {{domainDistrib?.name}}
-</h1>
-
-
-<div *ngFor="let goal of domainDistrib?.subgroups" class="my-4 px-3" style="border: 1px solid #ddd">
-     <h2 class="text-center">
-          <div>
-               {{ modelDisplayName }}: {{ domainDistrib?.name }}
+<div>
+     <div class="chart-wrapper">
+          <svg #chartSvg></svg>
+     </div>
+     
+     <div class="legend">
+          <div class="legend-item" *ngFor="let item of legendItems">
+               <div class="legend-color" [style.backgroundColor]="item.color"></div>
+               <span class="legend-label-text">{{ item.key }}</span>
           </div>
-          <div *ngIf="modelId == 22 || modelId == 23">
-               Goal: {{ goal.name }}
-          </div>
-           <div *ngIf="modelId == 24">
-               {{ goal.name }}
-          </div>
-     </h2>
-     <ngx-charts-bar-horizontal [view]="[700, 300]" [results]="goal.series" [scheme]="creSvc.colorScheme" [xAxis]="true"
-          [yAxis]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxisTickFormatting]="creSvc.fmt1"
-          [xScaleMax]="100" [xScaleMin]="0" [roundEdges]="false" [showDataLabel]="true"
-          [dataLabelFormatting]="creSvc.fmt1">
-     </ngx-charts-bar-horizontal>
+     </div>
+     <div class="tooltip text-center" [class.visible]="tooltipVisible" [style.left.px]="tooltipData.x"
+          [style.top.px]="tooltipData.y">
+          {{ tooltipData.barName }} &bull; {{ tooltipData.seriesKey }}<br>
+          {{ tooltipData.formattedValue }}
+     </div>
 </div>

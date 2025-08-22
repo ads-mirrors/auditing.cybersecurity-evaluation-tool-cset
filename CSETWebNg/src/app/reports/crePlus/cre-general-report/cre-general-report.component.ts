@@ -33,14 +33,15 @@ import { firstValueFrom } from 'rxjs';
 
 
 @Component({
-  selector: 'app-cre-assessment-overview',
+  selector: 'app-cre-general-report',
   standalone: false,
-  templateUrl: './cre-assessment-overview.component.html',
+  templateUrl: './cre-general-report.component.html',
   styleUrls: ['../../reports.scss'],
 })
-export class CreAssessmentOverview implements OnInit {
+export class CreGeneralReportComponent implements OnInit {
 
-  title = 'CISA Cyber Resilience Essentials (CRE+) Chart Report';
+  title: string;
+
   assessmentName: string;
   assessmentDate: string;
   assessorName: string;
@@ -48,8 +49,14 @@ export class CreAssessmentOverview implements OnInit {
   selfAssessment: boolean;
 
   // chart models
-  distribCore: any[];
-  domainDistrib: any[];
+  distribCoreDomainMil: any[];
+  domainDistribCoreDomainMil: any[];
+
+  distribCoreMil: any[];
+  domainDistribCoreMil: any[];
+
+  numberMilsSelected: number;
+  numberOdsSelected: number;
 
 
   /**
@@ -69,7 +76,11 @@ export class CreAssessmentOverview implements OnInit {
    * OnInit
    */
   async ngOnInit(): Promise<void> {
-    this.titleService.setTitle(this.title);
+    const titleKey = 'core.cre.charts.general.title';
+    this.tSvc.selectTranslate(titleKey, {}, 'reports').subscribe(t => {
+      this.title = t;
+      this.titleService.setTitle(this.title);
+    });
 
     this.assessSvc.getAssessmentDetail().subscribe((assessmentDetail: any) => {
       this.assessmentName = assessmentDetail.assessmentName;
@@ -79,8 +90,15 @@ export class CreAssessmentOverview implements OnInit {
       this.selfAssessment = assessmentDetail.selfAssessment;
     });
 
-    this.distribCore = await this.buildAllDistrib([22, 23, 24]);
-    this.domainDistrib = await this.buildDomainDistrib([22, 23, 24]);
+    this.distribCoreDomainMil = await this.buildAllDistrib([22, 23, 24]);
+    this.domainDistribCoreDomainMil = await this.buildDomainDistrib([22, 23, 24]);
+
+    this.distribCoreMil = await this.buildAllDistrib([22, 24]);
+    this.domainDistribCoreMil = await this.buildDomainDistrib([22, 24]);
+
+    this.numberOdsSelected = await firstValueFrom(this.creSvc.getSelectedGoalMilCount(23));
+
+    this.numberMilsSelected = await firstValueFrom(this.creSvc.getSelectedGoalMilCount(24));
   }
 
   /**
@@ -121,11 +139,16 @@ export class CreAssessmentOverview implements OnInit {
 
 
   /*************
-  Label and tooltip formatting functions 
+    Label and tooltip formatting functions 
   ***************/
 
   fmt2 = (label) => {
-    const slice = this.distribCore.find(slice => slice.name === label);
+    const slice = this.distribCoreDomainMil.find(slice => slice.name === label);
+    return `${label}: ${Math.round(slice.value)}%`;
+  }
+
+  fmt3 = (label) => {
+    const slice = this.distribCoreMil.find(slice => slice.name === label);
     return `${label}: ${Math.round(slice.value)}%`;
   }
 }

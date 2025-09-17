@@ -458,6 +458,10 @@ import { CrrMainTocComponent } from './reports/crr/crr-report/crr-main-toc/crr-m
 import { CreGeneralReportComponent } from './reports/crePlus/cre-general-report/cre-general-report.component';
 import { CreBarPieStackedComponent } from './reports/crePlus/cre-bar-pie-stacked/cre-bar-pie-stacked.component';
 import { CisaVadrInfoComponent } from './assessment/prepare/maturity/cisa-vadr-info/cisa-vadr-info.component';
+import { CisaVadrReportComponent } from './reports/cisa-vadr/cisa-vadr-report/cisa-vadr-report.component';
+import { CisaVadrLevelsComponent } from './assessment/prepare/maturity/cisa-vadr-levels/cisa-vadr-levels.component';
+import { CisaVadrObservationsComponent } from './reports/cisa-vadr/cisa-vadr-observations/cisa-vadr-observations.component';
+import { VadrGroupingBlockComponent } from './reports/cisa-vadr/vadr-grouping-block/vadr-grouping-block.component';
 import { CreMilYesNoComponent } from './reports/crePlus/cre-mil-yes-no/cre-mil-yes-no.component';
 import { CreMilPctImplementedComponent } from './reports/crePlus/cre-mil-pct-implemented/cre-mil-pct-implemented.component';
 import { CreMilExplanationsComponent } from './reports/crePlus/cre-mil-explanations/cre-mil-explanations.component';
@@ -608,9 +612,6 @@ import { NewAssessmentComponent } from './initial/new-assessment/new-assessment.
 import { register as registerSwiper } from 'swiper/element/bundle';
 import { AdminSettingsComponent } from './initial/admin-settings/admin-settings.component';
 import { UserService } from './services/user.service';
-import { CisaVadrReportComponent } from './reports/cisa-vadr/cisa-vadr-report/cisa-vadr-report.component';
-import { VadrGroupingBlockComponent } from './reports/cisa-vadr/vadr-grouping-block/vadr-grouping-block.component';
-import { CisaVadrLevelsComponent } from './assessment/prepare/maturity/cisa-vadr-levels/cisa-vadr-levels.component';
 import { DeficiencyTemplateComponent } from './reports/deficiency-template/deficiency-template.component';
 
 
@@ -888,6 +889,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
         CisaVadrInfoComponent,
         CisaVadrLevelsComponent,
         CisaVadrReportComponent,
+        CisaVadrObservationsComponent,
         VadrGroupingBlockComponent,
         OpenEndedQuestionsComponent,
         CisSurveyComponent,

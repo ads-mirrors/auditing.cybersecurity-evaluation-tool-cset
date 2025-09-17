@@ -528,18 +528,35 @@ namespace CSETWebCore.Api.Controllers
 
 
         /// <summary>
-        /// 
+        /// Returns Observations sorted by asignee for populating the Tear-Out Sheets.
         /// </summary>
         [HttpGet]
         [Route("api/reports/observations")]
-        public IActionResult GetObservations()
+        public IActionResult GetObservationsForTearout()
         {
             int assessmentId = _token.AssessmentForUser();
-
             _report.SetReportsAssessmentId(assessmentId);
+
             BasicReportData data = new BasicReportData();
             data.information = _report.GetInformation();
             data.Individuals = _report.GetObservationIndividuals();
+            return Ok(data);
+        }
+
+
+        /// <summary>
+        /// Returns Observation details suitable for the CISA VADR report.
+        /// </summary>
+        [HttpGet]
+        [Route("api/reports/vadr/observations")]
+        public IActionResult GetObservationsForVadrReport()
+        {
+            int assessmentId = _token.AssessmentForUser();
+            _report.SetReportsAssessmentId(assessmentId);
+
+            BasicReportData data = new BasicReportData();
+            data.information = _report.GetInformation();
+            // new functionality goes here to get observation list
             return Ok(data);
         }
 

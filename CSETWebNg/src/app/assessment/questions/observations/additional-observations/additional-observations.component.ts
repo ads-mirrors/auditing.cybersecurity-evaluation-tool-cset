@@ -21,63 +21,15 @@
 //  SOFTWARE.
 //
 ////////////////////////////////
-export interface Observation {
-  // ACET fields
-  question_Id: number | null;
-  question_Type: string;
-  answer_Id: number | null;
-  assessmentId: number | null;
-  observation_Id: number;
-  summary: string;
-  issue: string;
-  impact: string;
-  recommendations: string;
-  vulnerabilities: string;
-  resolution_Date: Date;
-  importance_Id: number;
-  // ISE fields
-  title: string;
-  type: string;
-  risk_Area: string;
-  sub_Risk: string;
-  description: string;
-  citations: string;
-  actionItems: string;
-  auto_Generated: number;
-  supp_Guidance: string;
-  // Shared fields
-  importance: Importance;
-  observation_Contacts: ObservationContact[];
+import { Component, OnInit } from '@angular/core';
 
+@Component({
+  selector: 'app-additional-observations',
+  standalone: false,
+  templateUrl: './additional-observations.component.html',
+  styleUrl: './additional-observations.component.scss'
+})
+export class AdditionalObservationsComponent implements OnInit {
 
-  answerLevel: boolean;
-
-}
-
-export interface SubRiskArea {
-  subRisk_Id: number;
-  value: string;
-  riskArea: string;
-}
-
-export interface Importance {
-  importance_Id: number;
-  value: string;
-}
-
-export interface ObservationContact {
-  observation_Id: number;
-  assessment_Contact_Id: number;
-  name: string;
-  selected: boolean;
-}
-
-export interface ActionItemTextUpdate {
-  actionTextItems: ActionItemText[];
-  observation_Id: number;
-}
-
-export interface ActionItemText {
-  Mat_Question_Id: number;
-  ActionItemOverrideText: string;
+  ngOnInit(): void {  }
 }

@@ -21,53 +21,17 @@
 //  SOFTWARE.
 //
 ////////////////////////////////
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AssessmentService } from '../../../services/assessment.service';
+import { Injectable } from "@angular/core";
+import { Question } from "../../../models/questions.model";
 
-@Component({
-  selector: 'app-export-assessment',
-  templateUrl: './export-assessment.component.html',
-  styleUrls: ['./export-assessment.component.scss'],
-  standalone: false
-})
-export class ExportAssessmentComponent {
+@Injectable()
+export class MvraFilteringService {
 
-  constructor(
-    public assessSvc: AssessmentService,
-    public dialogRef: MatDialogRef<ExportAssessmentComponent>,
-    @Inject(MAT_DIALOG_DATA) public input: any,
-  ) {
-    dialogRef.disableClose = true;
-  }
-
-  data = {
-    removePCII: false,
-    encryptionData: {
-      password: "",
-      hint: "",
+    /**
+     * Indicates if the MVRA question should be visible based on current
+     * MATURITY-based filtering.
+     */
+    public setQuestionVisibility(q: Question) {
+        q.visible = true;
     }
-  };
-
-
-  scrubSensitive = false;
-
-  password = "";
-  passwordHint = "";
-  showPassword = false;
-
-  confirm(): void {
-    this.data.removePCII = this.scrubSensitive;
-    this.data.encryptionData.password = this.password;
-    this.data.encryptionData.hint = this.passwordHint;
-    this.dialogRef.close(this.data);
-  }
-
-  cancel() {
-    this.dialogRef.close();
-  }
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
 }

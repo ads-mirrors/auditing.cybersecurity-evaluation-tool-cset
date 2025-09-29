@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CSETWebCore.DataLayer.Model
 {
-    public partial class usp_financial_attributesResult
+    public partial class usp_Assessments_Completion_For_UserResult
     {
     }
 }

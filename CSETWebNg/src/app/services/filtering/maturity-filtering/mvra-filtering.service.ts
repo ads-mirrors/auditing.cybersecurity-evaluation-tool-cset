@@ -21,30 +21,17 @@
 //  SOFTWARE.
 //
 ////////////////////////////////
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { Question } from "../../../models/questions.model";
 
-@Component({
-    selector: 'app-logout',
-    templateUrl: './logout.component.html',
-    standalone: false
-})
-export class LogoutComponent implements OnInit {
+@Injectable()
+export class MvraFilteringService {
 
-  constructor(
-    private router: Router
-  ) {
-    // remove user from session storage to log user out
-    localStorage.clear();
-    sessionStorage.removeItem('cset-assessments-page');
-    this.router.navigate(['/home/login'], { queryParamsHandling: "preserve" });
-  }
-
-  /**
-   *
-   */
-  ngOnInit(): void {
-
-  }
-
+    /**
+     * Indicates if the MVRA question should be visible based on current
+     * MATURITY-based filtering.
+     */
+    public setQuestionVisibility(q: Question) {
+        q.visible = true;
+    }
 }

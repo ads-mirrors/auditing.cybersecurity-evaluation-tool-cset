@@ -20,18 +20,11 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
   SOFTWARE. 
 -------------------------->
-
-<div class="d-block mb-4">
-    <ngx-charts-bar-horizontal-stacked [results]="distrib" [view]="view"
-        [yAxis]="'true'" [xAxis]="'true'"
-        [trimYAxisTicks]="'false'" [maxYAxisTickLength]="100" [xAxisTicks]="xAxisTicks"
-        [xAxisTickFormatting]="formatPercent" [legend]="'true'" [legendPosition]="'below'"
-        [legendTitle]="'legend' | transloco" [scheme]="answerDistribColorScheme">
-        <ng-template #tooltipTemplate let-model="model">
-            <div class="p-1">
-                {{model.name}}<br />
-                {{model.value | number:'1.0-0'}}%
-            </div>
-        </ng-template>
-    </ngx-charts-bar-horizontal-stacked>
+<div class="border border-secondary p-3 rounded mb-4 w-fit">
+     <div *ngIf="TECH_DOMAIN_OT.includes(techDomain)">
+          Operation Technology (OT): {{otScore | number:'1.1-2'}}%
+     </div>
+     <div *ngIf="TECH_DOMAIN_IT.includes(techDomain)">
+          Information Technology (IT): {{itScore | number:'1.1-2'}}%
+     </div>
 </div>
